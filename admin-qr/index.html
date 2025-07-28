@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin QR Codes - Barjos</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>🔐 Admin QR Codes</h1>
+      <p>Les Barjos du Barajo - Interface d'administration</p>
+    </div>
+
+    <div class="instructions no-print">
+      <h3>📋 Instructions :</h3>
+      <ol>
+        <li>Entrez l'URL de votre site GitHub Pages</li>
+        <li>Cliquez sur "Générer les QR Codes"</li>
+        <li>Modifiez individuellement les URLs si nécessaire</li>
+        <li>Imprimez la page ou sauvegardez les images</li>
+        <li>Collez les QR codes sur vos T-shirts !</li>
+      </ol>
+    </div>
+
+    <div class="config-section no-print">
+      <h3>🔧 Configuration</h3>
+      <input
+        type="url"
+        id="base-url"
+        class="url-input"
+        placeholder="https://votre-username.github.io/nom-du-repo"
+        value="https://votre-username.github.io/barjos-pokedex"
+      />
+      <button class="generate-btn" onclick="generateQRCodes()">
+        🎯 Générer les QR Codes
+      </button>
+      <button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+      <button
+        class="print-btn"
+        onclick="resetAllUrls()"
+        style="background: #dc3545"
+      >
+        🔄 Tout Réinitialiser
+      </button>
+      <button
+        class="print-btn"
+        onclick="exportUrls()"
+        style="background: #17a2b8"
+      >
+        📋 Copier URLs
+      </button>
+    </div>
+
+    <div id="qr-container" class="qr-grid">
+      <!-- QR codes will be generated here -->
+    </div>
+
+    <script src="../config.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>
