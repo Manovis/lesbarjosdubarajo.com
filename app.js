@@ -43,7 +43,7 @@ function displayCurrentBarjo(barjoId, isNew = false) {
   const photoUrl = getBarjoPhotoUrl(barjoId);
 
   currentBarjoElement.innerHTML = `
-        <div class="barjo-photo">
+        <div class="barjo-photo" onclick="openPhotoModal('${photoUrl}', '${barjo.name}')">
             <img src="${photoUrl}" alt="${barjo.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='🤪';">
         </div>
         <div class="barjo-info">
@@ -95,9 +95,15 @@ function renderCollection() {
 
     if (isCollected) {
       miniBarjo.title = barjo.name;
-      miniBarjo.onclick = () => {
-        displayCurrentBarjo(barjoId);
-        showView("current");
+      miniBarjo.onclick = (event) => {
+        // Si on clique sur l'image, ouvrir la modale
+        if (event.target.tagName === "IMG") {
+          openPhotoModal(photoUrl, barjo.name);
+        } else {
+          // Sinon, afficher le Barjo
+          displayCurrentBarjo(barjoId);
+          showView("current");
+        }
       };
     } else {
       miniBarjo.title = "Barjo manquant";
@@ -127,8 +133,54 @@ function showView(view) {
 }
 
 // ===============================
-// FONCTIONS UTILES POUR LES DEVS
+// FONCTIONS MODALE PHOTO
 // ===============================
+
+function openPhotoModal(photoUrl, barjoName) {
+  // Créer la modale si elle n'existe pas
+  let modal = document.getElementById("photo-modal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "photo-modal";
+    modal.className = "photo-modal";
+    modal.innerHTML = `
+            <div class="modal-backdrop" onclick="closePhotoModal()"></div>
+            <div class="modal-content">
+                <button class="modal-close" onclick="closePhotoModal()">✕</button>
+                <img class="modal-image" src="" alt="">
+                <div class="modal-title"></div>
+            </div>
+        `;
+    document.body.appendChild(modal);
+  }
+
+  // Mettre à jour le contenu
+  const modalImg = modal.querySelector(".modal-image");
+  const modalTitle = modal.querySelector(".modal-title");
+
+  modalImg.src = photoUrl;
+  modalImg.alt = barjoName;
+  modalTitle.textContent = barjoName;
+
+  // Afficher la modale
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden"; // Empêcher le scroll
+}
+
+function closePhotoModal() {
+  const modal = document.getElementById("photo-modal");
+  if (modal) {
+    modal.classList.remove("active");
+    document.body.style.overflow = ""; // Rétablir le scroll
+  }
+}
+
+// Fermer avec Echap
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closePhotoModal();
+  }
+});
 
 // Pour ajouter facilement des Barjos
 function addBarjo(id, name, description, photoUrl) {

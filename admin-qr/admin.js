@@ -78,6 +78,14 @@ function generateQRCodes() {
                 <img src="${qrUrl}" alt="QR Code ${
       barjo.name
     }" style="width: 200px; height: 200px;" id="qr-${barjoId}">
+                <div class="photo-preview" onclick="openPhotoModal('${getAdminBarjoPhotoUrl(
+                  barjoId
+                )}', '${barjo.name}')">
+                    <img src="${getAdminBarjoPhotoUrl(barjoId)}" alt="${
+      barjo.name
+    }" onerror="this.style.display='none';">
+                    <div class="preview-overlay">👁️ Voir photo</div>
+                </div>
             </div>
             <div class="edit-controls no-print">
                 <button class="edit-btn" onclick="editUrl('${barjoId}')">✏️ Modifier URL</button>
@@ -274,3 +282,53 @@ function loadCustomUrls() {
   );
   console.log("🏷️ QR codes en cache:", Object.keys(qrHistory).length);
 }
+
+// ===============================
+// FONCTIONS MODALE PHOTO
+// ===============================
+
+function openPhotoModal(photoUrl, barjoName) {
+  // Créer la modale si elle n'existe pas
+  let modal = document.getElementById("photo-modal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "photo-modal";
+    modal.className = "photo-modal";
+    modal.innerHTML = `
+            <div class="modal-backdrop" onclick="closePhotoModal()"></div>
+            <div class="modal-content">
+                <button class="modal-close" onclick="closePhotoModal()">✕</button>
+                <img class="modal-image" src="" alt="">
+                <div class="modal-title"></div>
+            </div>
+        `;
+    document.body.appendChild(modal);
+  }
+
+  // Mettre à jour le contenu
+  const modalImg = modal.querySelector(".modal-image");
+  const modalTitle = modal.querySelector(".modal-title");
+
+  modalImg.src = photoUrl;
+  modalImg.alt = barjoName;
+  modalTitle.textContent = barjoName;
+
+  // Afficher la modale
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closePhotoModal() {
+  const modal = document.getElementById("photo-modal");
+  if (modal) {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+}
+
+// Fermer avec Echap
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closePhotoModal();
+  }
+});

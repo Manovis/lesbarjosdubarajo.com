@@ -4,23 +4,54 @@
 const BARJOS_CONFIG = {
   alain: {
     name: "Alain",
-    description: "Le plus costaud de tous les barjos.",
+    description:
+      "Le barjo le plus costaud, lui aussi il est tombé dans a la potion.",
   },
   marvin: {
     name: "Marvin",
-    description: "L'enfant de Tchernobyl",
+    description:
+      "L'enfant de Tchernobyl, pas d'inquiétude si tu le croise entrain d'imiter le penseur.",
   },
   thomas: {
     name: "Thomas",
-    description: "Le roi du caca.",
+    description:
+      "Il a pris pour habitude de poser sa pêche un peu partout, et non il n'est pas maraicher.",
   },
   guitou: {
     name: "Guitou",
-    description: "Rare sont ceux qui l'ont vu sourire!",
+    description:
+      "Rare sont ceux qui l'ont vu sourire, souvent en déplacement pour éteindre les incendies avec son énorme lance.",
   },
   jerem: {
     name: "Jerem",
     description: "Juste un BG.",
+  },
+  jeje: {
+    name: "Jeje",
+    description: "Toujours de bons conseils en matière de mécanique.",
+  },
+  david: {
+    name: "David",
+    description: "Mateu pour les intimes, la calotte de tes morts mon copain.",
+  },
+  cecilia: {
+    name: "Cecilia",
+    description:
+      "Si elle ne t'a pas encore enguelé, c'est que tu ne lui as pas encore parlé.",
+  },
+  ophelie: {
+    name: "Ophélie",
+    description: "Les gens à l'ouest disent d'elle qu'elle est à l'ouest.",
+  },
+  melodie: {
+    name: "Mélodie",
+    description:
+      "La blonde originelle, 'Tu vas à Marrakech?! Mais tu devais aller au Maroc!'",
+  },
+  axelle: {
+    name: "Axelle",
+    description:
+      "Barjo legéndaire de type agoraphobe. Si vous la croisé, restez calme.",
   },
 };
 
