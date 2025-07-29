@@ -98,7 +98,7 @@ function renderCollection() {
       miniBarjo.onclick = (event) => {
         // Si on clique sur l'image, ouvrir la modale
         if (event.target.tagName === "IMG") {
-          openPhotoModal(photoUrl, barjo.name);
+          openPhotoModal(photoUrl, barjo);
         } else {
           // Sinon, afficher le Barjo
           displayCurrentBarjo(barjoId);
@@ -136,7 +136,7 @@ function showView(view) {
 // FONCTIONS MODALE PHOTO
 // ===============================
 
-function openPhotoModal(photoUrl, barjoName) {
+function openPhotoModal(photoUrl, barjo) {
   // Créer la modale si elle n'existe pas
   let modal = document.getElementById("photo-modal");
   if (!modal) {
@@ -149,6 +149,7 @@ function openPhotoModal(photoUrl, barjoName) {
                 <button class="modal-close" onclick="closePhotoModal()">✕</button>
                 <img class="modal-image" src="" alt="">
                 <div class="modal-title"></div>
+                <div class="modal-description"></div>
             </div>
         `;
     document.body.appendChild(modal);
@@ -157,10 +158,12 @@ function openPhotoModal(photoUrl, barjoName) {
   // Mettre à jour le contenu
   const modalImg = modal.querySelector(".modal-image");
   const modalTitle = modal.querySelector(".modal-title");
+  const modalDescr = modal.querySelector(".modal-description");
 
   modalImg.src = photoUrl;
-  modalImg.alt = barjoName;
-  modalTitle.textContent = barjoName;
+  modalImg.alt = barjo.name;
+  modalTitle.textContent = barjo.name;
+  modalDescr.textContent = barjo.description;
 
   // Afficher la modale
   modal.classList.add("active");
