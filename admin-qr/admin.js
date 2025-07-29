@@ -1,3 +1,70 @@
+// ===============================
+// SYSTÈME D'AUTHENTIFICATION
+// ===============================
+
+// Hash SHA-256 sécurisé des identifiants
+const CREDENTIALS_HASH = {
+  username: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+  password: "52eb52ea45b7ca58d5fceffe52d7ce0ff74a3c00c22406d71cfa61e8d1967dad",
+};
+
+// Fonction de hashage SHA-256
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  return hashHex;
+}
+
+// Vérification de l'authentification
+async function checkAuth(username, password) {
+  const usernameHash = await sha256(username);
+  const passwordHash = await sha256(password);
+
+  return (
+    usernameHash === CREDENTIALS_HASH.username &&
+    passwordHash === CREDENTIALS_HASH.password
+  );
+}
+
+// Afficher le contenu administrateur
+function showAdminContent() {
+  document.getElementById("login-container").style.display = "none";
+  document.getElementById("admin-content").style.display = "block";
+  document.getElementById("logout-btn").style.display = "block";
+
+  // Initialiser le contenu admin
+  const baseUrl = document.getElementById("base-url").value;
+  if (baseUrl && baseUrl !== "https://lesbarjosdubarajo.com/admin-qr/") {
+    generateQRCodes();
+  }
+  loadCustomUrls();
+}
+
+// Déconnexion
+function logout() {
+  if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+    sessionStorage.removeItem("barjos-admin-authenticated");
+    document.getElementById("login-container").style.display = "flex";
+    document.getElementById("admin-content").style.display = "none";
+    document.getElementById("logout-btn").style.display = "none";
+
+    // Réinitialiser le formulaire
+    document.getElementById("login-form").reset();
+    document.getElementById("error-message").style.display = "none";
+  }
+}
+
+// Add event listener to logout button
+document.getElementById("logout-btn").addEventListener("click", logout);
+
+// ===============================
+// GESTION DES QR CODES (CODE ORIGINAL)
+// ===============================
+
 // Variables globales
 let customUrls = JSON.parse(localStorage.getItem("barjos-custom-urls") || "{}");
 let qrHistory = JSON.parse(localStorage.getItem("barjos-qr-history") || "{}");
@@ -14,14 +81,49 @@ function getAdminBarjoPhotoUrl(barjoId) {
 
 // Initialisation
 window.onload = function () {
-  const baseUrl = document.getElementById("base-url").value;
-  if (
-    baseUrl &&
-    baseUrl !== "https://votre-username.github.io/barjos-pokedex"
-  ) {
-    generateQRCodes();
+  // Vérifier l'authentification au chargement
+  if (sessionStorage.getItem("barjos-admin-authenticated") === "true") {
+    showAdminContent();
+  } else {
+    // Gestion du formulaire de login
+    document
+      .getElementById("login-form")
+      .addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const errorMessage = document.getElementById("error-message");
+        const loginBtn = document.getElementById("login-btn");
+
+        // Désactiver le bouton pendant la vérification
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Vérification...";
+        errorMessage.style.display = "none";
+
+        try {
+          const isValid = await checkAuth(username, password);
+
+          if (isValid) {
+            // Connexion réussie
+            sessionStorage.setItem("barjos-admin-authenticated", "true");
+            showAdminContent();
+          } else {
+            // Identifiants incorrects
+            errorMessage.style.display = "block";
+            document.getElementById("password").value = "";
+          }
+        } catch (error) {
+          console.error("Erreur lors de l'authentification:", error);
+          errorMessage.textContent = "❌ Erreur de connexion";
+          errorMessage.style.display = "block";
+        }
+
+        // Réactiver le bouton
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Se connecter";
+      });
   }
-  loadCustomUrls();
 };
 
 function generateQRCodes() {
