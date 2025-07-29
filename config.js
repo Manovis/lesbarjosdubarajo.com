@@ -1,5 +1,4 @@
-// Configuration des Barjos - FACILE À MAINTENIR !
-// Pour ajouter un nouveau Barjo, ajoutez simplement une nouvelle entrée ici
+// Configuration des Barjos
 
 const BARJOS_CONFIG = {
   alain: {
@@ -7,51 +6,83 @@ const BARJOS_CONFIG = {
     description:
       "Le barjo le plus costaud, lui aussi il est tombé dans a la potion.",
   },
-  marvin: {
-    name: "Marvin",
+  axelle: {
+    name: "Axelle",
     description:
-      "L'enfant de Tchernobyl, pas d'inquiétude si tu le croise entrain d'imiter le penseur.",
-  },
-  thomas: {
-    name: "Thomas",
-    description:
-      "Il a pris pour habitude de poser sa pêche un peu partout, et non il n'est pas maraicher.",
-  },
-  guitou: {
-    name: "Guitou",
-    description:
-      "Rare sont ceux qui l'ont vu sourire, souvent en déplacement pour éteindre les incendies avec son énorme lance.",
-  },
-  jerem: {
-    name: "Jerem",
-    description: "Juste un BG.",
-  },
-  jeje: {
-    name: "Jeje",
-    description: "Toujours de bons conseils en matière de mécanique.",
-  },
-  david: {
-    name: "David",
-    description: "Mateu pour les intimes, la calotte de tes morts mon copain.",
+      "Barjo legéndaire de type agoraphobe. Si vous la croisé, restez calme.",
   },
   cecilia: {
     name: "Cecilia",
     description:
       "Si elle ne t'a pas encore enguelé, c'est que tu ne lui as pas encore parlé.",
   },
-  ophelie: {
-    name: "Ophélie",
-    description: "Les gens à l'ouest disent d'elle qu'elle est à l'ouest.",
+  david: {
+    name: "David",
+    description: "Mateu pour les intimes, la calotte de tes morts mon copain.",
+  },
+  elodie: {
+    name: "Elo",
+    description: ".",
+  },
+  eva: {
+    name: "Eva",
+    description: ".",
+  },
+  fefe: {
+    name: "Fefe",
+    description:
+      "Le seul gardois que l'on tolère. Si vous avez une envie de footing nocturne, n'hésitez pas.",
+  },
+  gael: {
+    name: "Gael",
+    description:
+      "Si vous ne l'avez pas entendu râler c'est que vous ne lui avez pas encore parlé!",
+  },
+  guitou: {
+    name: "Guitou",
+    description:
+      "Rare sont ceux qui l'ont vu sourire, souvent en déplacement pour éteindre les incendies avec son énorme lance.",
+  },
+  jeje: {
+    name: "Jeje",
+    description: "Toujours de bons conseils en matière de mécanique.",
+  },
+  jerem: {
+    name: "Jerem",
+    description: "Juste un BG.",
+  },
+  jr: {
+    name: "JR",
+    description:
+      "Celui-ci les aimes mures alors mettez vos daronnes à l'abris.",
+  },
+  marvin: {
+    name: "Marvin",
+    description:
+      "L'enfant de Tchernobyl, pas d'inquiétude si tu le croise entrain d'imiter le penseur.",
   },
   melodie: {
     name: "Mélodie",
     description:
       "La blonde originelle, 'Tu vas à Marrakech?! Mais tu devais aller au Maroc!'",
   },
-  axelle: {
-    name: "Axelle",
+  meras: {
+    name: "Meras",
     description:
-      "Barjo legéndaire de type agoraphobe. Si vous la croisé, restez calme.",
+      "Ne le laissez jamais rentrer avant vous, il risque de vous laisser poiroter un moment...",
+  },
+  ophelie: {
+    name: "Ophélie",
+    description: "Les gens à l'ouest disent d'elle qu'elle est à l'ouest.",
+  },
+  sandra: {
+    name: "Sandra",
+    description: "Pas vue sur Sète depuis des années, n'est-ce pas si mal?",
+  },
+  thomas: {
+    name: "Thomas",
+    description:
+      "Il a pris pour habitude de poser sa pêche un peu partout, et non il n'est pas maraicher.",
   },
 };
 
@@ -68,12 +99,3 @@ function getBarjoPhotoUrl(barjoId) {
   }
   return `images/${barjoId}.jpg`; // Fallback par défaut
 }
-
-// Exemple pour ajouter un nouveau Barjo :
-/*
-"nouveau_barjo": {
-    name: "Nom du Barjo",
-    description: "Sa description rigolote et unique",
-    photo: "URL_de_sa_photo_ou_images/nom_photo.jpg"
-},
-*/
