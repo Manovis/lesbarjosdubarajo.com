@@ -438,12 +438,6 @@ body {
     transform: scale(1.2);
 }
 
-.page-number {
-    margin: 0 15px;
-    font-weight: bold;
-    color: #1e3c72;
-}
-
 /* Styles pour le contenu */
 h2 {
     color: #1e3c72;
