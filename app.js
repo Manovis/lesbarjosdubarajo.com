@@ -4,6 +4,8 @@ let collectedBarjos = JSON.parse(
 );
 let currentView = "current";
 
+
+
 // Initialisation de l'application
 document.addEventListener("DOMContentLoaded", function () {
   updateStats();
@@ -132,17 +134,80 @@ function showView(view) {
   currentView = view;
 }
 
-// Ouverture/fermeture pop-up
+// ===============================
+// FONCTIONS Popup
+// ===============================
+// Popup
+let currentPage = 1;
+const totalPages = 4;
+
+// Affichage pop-up
 const showPopup = (popupname) => {
-  document.querySelectorAll('.overlay-popup').forEach(p => 
-    p.classList.remove('active-popup')
-  );
-  document.getElementById(popupname).classList.add('active-popup');
+    document.querySelectorAll('.overlay-popup').forEach(p => 
+        p.classList.remove('active-popup')
+    );
+    document.getElementById(popupname).classList.add('active-popup');
+    // Reset à la première page quand on ouvre
+    goToPage(1);
 };
 
 const closePopup = (popupname) => {
-  document.getElementById(popupname).classList.remove('active-popup');
+    document.getElementById(popupname).classList.remove('active-popup');
 };
+
+// Fonctions de pagination
+function changePage(direction) {
+    const newPage = currentPage + direction;
+    if (newPage >= 1 && newPage <= totalPages) {
+        goToPage(newPage);
+    }
+}
+
+function goToPage(pageNumber) {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+    
+    // Masquer toutes les pages
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // Afficher la page sélectionnée
+    document.querySelector(`[data-page="${pageNumber}"]`).classList.add('active');
+    
+    // Mettre à jour les indicateurs
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index + 1 === pageNumber);
+    });
+    
+    // Mettre à jour le numéro de page
+    document.querySelector('.page-number').textContent = `${pageNumber} / ${totalPages}`;
+    
+    // Gérer les boutons précédent/suivant
+    document.getElementById('prevBtn').disabled = pageNumber === 1;
+    document.getElementById('nextBtn').disabled = pageNumber === totalPages;
+    
+    currentPage = pageNumber;
+}
+
+// Navigation au clavier
+document.addEventListener('keydown', function(e) {
+    if (document.querySelector('.overlay-popup.active-popup')) {
+        if (e.key === 'ArrowLeft') {
+            changePage(-1);
+        } else if (e.key === 'ArrowRight') {
+            changePage(1);
+        } else if (e.key === 'Escape') {
+            closePopup('instructions');
+        }
+    }
+});
+
+// Fermer en cliquant à l'extérieur
+document.getElementById('instructions').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closePopup('instructions');
+    }
+});
 
 // ===============================
 // FONCTIONS MODALE PHOTO
@@ -227,3 +292,21 @@ console.log(
   "- addBarjo(id, name, description, photoUrl): Aide à ajouter un nouveau Barjo"
 );
 console.log("- localStorage.clear(): Reset la collection (pour les tests)");
+
+// Affichage automatique des instructions à la première visite
+const checkFirstVisit = () => {
+  const hasVisited = localStorage.getItem('barjos-first-visit');
+  
+  if (!hasVisited) {
+    // Marquer comme visité
+    localStorage.setItem('barjos-first-visit', 'true');
+    
+    // Afficher les instructions après un court délai
+    setTimeout(() => {
+      showPopup('instructions');
+    }, 500);
+  }
+};
+
+// Appeler la fonction au chargement de la page
+document.addEventListener('DOMContentLoaded', checkFirstVisit);

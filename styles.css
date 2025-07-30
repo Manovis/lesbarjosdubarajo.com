@@ -305,58 +305,180 @@ body {
 }
 
 .footer{
-  position: relative;
-  display: flex;
-  flex-direction: line;
-  justify-content: space-around;
+    position: relative;
+    display: flex;
+    flex-direction: line;
+    justify-content: space-around;
 }
 
 .overlay-popup{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: none;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    z-index: 1000;
 }
 
 .active-popup{
-  display:flex;
+    display: flex !important;
 }
 
 .content-popup{
-  position: absolute;
-  min-width: 400px;
-  max-width: 800px;
-  padding: 40px;
-  background-color: #FFF;
-  border-radius: 20px;
-  color: black;
+    position: relative;
+    min-width: 400px;
+    max-width: 800px;
+    min-height: 500px;
+    padding: 40px;
+    background-color: #FFF;
+    border-radius: 20px;
+    color: black;
+    display: flex;
+    flex-direction: column;
 }
 
-.content-popup button{
-  border: 0px;
-  background-color: #FFF;
-  color: black;
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  cursor:pointer;
+.content-popup .close-btn{
+    border: 0px;
+    background-color: #FFF;
+    color: black;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    
+}
+
+.content-popup .close-btn:hover{
+    background-color: #f0f0f0;
 }
 
 .content-popup img{
-  width: 30px;
-  height: 30px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Styles pour la pagination */
+.page-content {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+}
+
+.nav-button {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.nav-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.page-indicator {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    transform: scale(1.2);
+}
+
+.page-number {
+    margin: 0 15px;
+    font-weight: bold;
+    color: #1e3c72;
+}
+
+/* Styles pour le contenu */
+h2 {
+    color: #1e3c72;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h3 {
+    color: #2a5298;
+    margin: 20px 0 10px 0;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+em {
+    background: #f0f8ff;
+    padding: 10px;
+    border-radius: 8px;
+    display: block;
+    margin: 10px 0;
+    border-left: 4px solid #2a5298;
+}
+
+.reward-list {
+    list-style: none;
+    padding: 0;
+}
+
+.reward-list li {
+    background: #f9f9f9;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border-left: 4px solid #ffd700;
 }

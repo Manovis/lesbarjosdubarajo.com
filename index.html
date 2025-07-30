@@ -1,96 +1,180 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokédex des Barjos</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="pokedex-container">
-      <div class="header">
-        <div class="title">POKÉDEX DES BARJOS</div>
-        <div class="subtitle">Les Barjos du Barajo</div>
-      </div>
 
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-number" id="collected-count">0</div>
-          <div class="stat-label">CAPTURÉS</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number" id="total-count">0</div>
-          <div class="stat-label">TOTAL</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number" id="completion-rate">0%</div>
-          <div class="stat-label">COMPLÉTÉ</div>
-        </div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokédex des Barjos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-      <div class="navigation">
-        <button class="nav-btn active" onclick="showView('current')">
-          ACTUEL
-        </button>
-        <button class="nav-btn" onclick="showView('collection')">
-          COLLECTION
-        </button>
-      </div>
-
-      <div id="success-message" class="success-message hidden">
-        <strong>🎉 NOUVEAU BARJO CAPTURÉ ! 🎉</strong>
-      </div>
-
-      <div id="current-view">
-        <div id="current-barjo" class="barjo-card">
-          <div class="barjo-photo">
-            <span>📱</span>
-          </div>
-          <div class="barjo-info">
-            <div class="barjo-name">Scannez un QR Code!</div>
-            <div class="barjo-description">
-              Trouvez vos amis et scannez leurs QR codes pour les ajouter à
-              votre collection!
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="collection-view" class="hidden">
-        <div class="collection-grid" id="collection-grid">
-          <!-- Collection items will be generated here -->
-        </div>
-      </div>
-
-      <div class="footer">
-          <button class="nav-btn" onclick="showPopup('instructions')">
-            Instructions
-          </button>
-          <button class="nav-btn" onclick="showPopup('informations')">
-            Informations
-          </button>
-      </div>
-      
-      <div id="instructions" class="overlay-popup">
-        <div class="content-popup">
-            <h2> Instructions du Barjodex </h2>
-            
-            <button onclick="closePopup('instructions')"> <img src="res/close.png"> </button>
-        </div>
-      </div>
-
-      <div id="informations" class="overlay-popup">
-        <div class="content-popup">
-            <h2> Informations </h2>
-            <button onclick="closePopup('informations')"> <img src="res/close.png"> </button>
-        </div>
-      </div>
-        
+<body>
+  <div class="pokedex-container">
+    <div class="header">
+      <div class="title">POKÉDEX DES BARJOS</div>
+      <div class="subtitle">Les Barjos du Barajo</div>
     </div>
 
-    
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number" id="collected-count">0</div>
+        <div class="stat-label">CAPTURÉS</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="total-count">0</div>
+        <div class="stat-label">TOTAL</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="completion-rate">0%</div>
+        <div class="stat-label">COMPLÉTÉ</div>
+      </div>
+    </div>
 
-    <script src="config.js"></script>
-    <script src="app.js"></script>
-  </body>
+    <div class="navigation">
+      <button class="nav-btn active" onclick="showView('current')">
+        ACTUEL
+      </button>
+      <button class="nav-btn" onclick="showView('collection')">
+        COLLECTION
+      </button>
+    </div>
+
+    <div id="success-message" class="success-message hidden">
+      <strong>🎉 NOUVEAU BARJO CAPTURÉ ! 🎉</strong>
+    </div>
+
+    <div id="current-view">
+      <div id="current-barjo" class="barjo-card">
+        <div class="barjo-photo">
+          <span>📱</span>
+        </div>
+        <div class="barjo-info">
+          <div class="barjo-name">Scannez un QR Code!</div>
+          <div class="barjo-description">
+            Trouvez vos amis et scannez leurs QR codes pour les ajouter à
+            votre collection!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="collection-view" class="hidden">
+      <div class="collection-grid" id="collection-grid">
+        <!-- Collection items will be generated here -->
+      </div>
+    </div>
+
+    <div class="footer">
+      <button class="nav-btn" onclick="showPopup('instructions')">
+        Instructions
+      </button>
+      <button class="nav-btn" onclick="showPopup('informations')">
+        Informations
+      </button>
+    </div>
+
+    <div id="instructions" class="overlay-popup">
+      <div class="content-popup">
+        <button class="close-btn" onclick="closePopup('instructions')">
+          <img src="res/close.png">
+        </button>
+
+        <div class="page-content">
+          <!-- Page 1: Bienvenue -->
+          <div class="page active" data-page="1">
+            <h2>Instructions du Barjodex</h2>
+            <h3>🖐 Bienvenue, Chasseur de Barjos !</h3>
+            <p>Préparez-vous pour une aventure unique pendant ce week-end de feria! Votre mission, si vous l'acceptez,
+              est de collectionner tous les Barjos !</p>
+            <p>Voici comment participer et gagner des récompenses incroyables.</p>
+            <em>💡 Astuce : Soyez prêt à explorer tous les recoins de Sète !</em>
+          </div>
+
+          <!-- Page 2: Comment Jouer -->
+          <div class="page" data-page="2">
+            <h2>Instructions du Barjodex</h2>
+            <h3>🎮 Comment Jouer ?</h3>
+            <p><strong>1.</strong> Les barjos portent des t-shirts spéciaux avec un QR code dans le dos, il vous faut
+              les trouver.</p>
+            <p><strong>2.</strong> Scannez les QR codes sur les t-shirts pour ajouter des Barjos à votre collection.</p>
+            <p><strong>3.</strong> Trouvez et collectionnez autant de Barjos que possible. Plus votre collection est
+              complète, plus vous avez de chances de gagner des récompenses.</p>
+          </div>
+
+          <!-- Page 3: Barjos Rares -->
+          <div class="page" data-page="3">
+            <h2>Instructions du Barjodex</h2>
+            <h3>🔍 Barjos Rares & Cachés</h3>
+            <p>Certains Barjos sont plus rares et leurs QR codes sont cachés dans des endroits secrets :</p>
+            <ul style="margin-left: 20px;">
+              <li>📱 Dans les rues sur des panneaux</li>
+              <li>🏢 Sur des murs de bâtiments</li>
+              <li>🍺 Dans des bars de bodega</li>
+              <li>🎪 Près des attractions de la feria</li>
+            </ul>
+            <em>🕵️ Soyez attentif et explorez bien autour de vous ! Ces Barjos rares valent plus de points.</em>
+          </div>
+
+          <!-- Page 4: Récompenses -->
+          <div class="page" data-page="4">
+            <h2>Instructions du Barjodex</h2>
+            <h3>🎁 Récompenses</h3>
+            <p>Plus vous collectionnez de Barjos, plus vos récompenses sont importantes :</p>
+            <ul class="reward-list">
+              <li>🥉 <strong>5-10 Barjos :</strong> Badge Bronze + Goodies</li>
+              <li>🥈 <strong>11-15 Barjos :</strong> Badge Argent + T-shirt collector</li>
+              <li>🥇 <strong>16+ Barjos :</strong> Badge Or + Prix spécial</li>
+              <li>👑 <strong>Collection complète :</strong> Récompense légendaire !</li>
+            </ul>
+            <p><strong>Bonne chasse aux Barjos ! 🎉</strong></p>
+          </div>
+        </div>
+
+        <div class="pagination-controls">
+          <button class="nav-button" id="prevBtn" onclick="changePage(-1)" disabled>
+            ← Précédent
+          </button>
+
+          <div class="page-indicator">
+            <div class="dot active" onclick="goToPage(1)"></div>
+            <div class="dot" onclick="goToPage(2)"></div>
+            <div class="dot" onclick="goToPage(3)"></div>
+            <div class="dot" onclick="goToPage(4)"></div>
+            <span class="page-number">1 / 4</span>
+          </div>
+
+          <button class="nav-button" id="nextBtn" onclick="changePage(1)">
+            Suivant →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="informations" class="overlay-popup">
+      <div class="content-popup">
+        <button class="close-btn" onclick="closePopup('informations')">
+          <img src="res/close.png">
+        </button>
+
+        <div class="page-content">
+            <h2>Informations</h2>
+            <p>
+              Ce jeu a été imaginé avec passion. Si celui-ci vous a inspiré pour créer votre propre contenu,
+              n'hésitez pas à vous rapprocher du créateur. C'est toujours un plaisir d'échanger autour de nouvelles idées ou de projets dérivés !
+            </p>
+            <p>
+              Contactez-moi directement pour toute question, proposition ou collaboration.
+    </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+
 </html>
