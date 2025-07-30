@@ -179,9 +179,6 @@ function goToPage(pageNumber) {
         dot.classList.toggle('active', index + 1 === pageNumber);
     });
     
-    // Mettre à jour le numéro de page
-    document.querySelector('.page-number').textContent = `${pageNumber} / ${totalPages}`;
-    
     // Gérer les boutons précédent/suivant
     document.getElementById('prevBtn').disabled = pageNumber === 1;
     document.getElementById('nextBtn').disabled = pageNumber === totalPages;
