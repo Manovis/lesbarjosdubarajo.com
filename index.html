@@ -61,7 +61,34 @@
           <!-- Collection items will be generated here -->
         </div>
       </div>
+
+      <div class="footer">
+          <button class="nav-btn" onclick="showPopup('instructions')">
+            Instructions
+          </button>
+          <button class="nav-btn" onclick="showPopup('informations')">
+            Informations
+          </button>
+      </div>
+      
+      <div id="instructions" class="overlay-popup">
+        <div class="content-popup">
+            <h2> Instructions du Barjodex </h2>
+            
+            <button onclick="closePopup('instructions')"> <img src="res/close.png"> </button>
+        </div>
+      </div>
+
+      <div id="informations" class="overlay-popup">
+        <div class="content-popup">
+            <h2> Informations </h2>
+            <button onclick="closePopup('informations')"> <img src="res/close.png"> </button>
+        </div>
+      </div>
+        
     </div>
+
+    
 
     <script src="config.js"></script>
     <script src="app.js"></script>

@@ -12,6 +12,7 @@ body {
 }
 
 .pokedex-container {
+  position: relative;
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -301,4 +302,61 @@ body {
   padding: 8px 16px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
+}
+
+.footer{
+  position: relative;
+  display: flex;
+  flex-direction: line;
+  justify-content: space-around;
+}
+
+.overlay-popup{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  z-index: 1000;
+}
+
+.active-popup{
+  display:flex;
+}
+
+.content-popup{
+  position: absolute;
+  min-width: 400px;
+  max-width: 800px;
+  padding: 40px;
+  background-color: #FFF;
+  border-radius: 20px;
+  color: black;
+}
+
+.content-popup button{
+  border: 0px;
+  background-color: #FFF;
+  color: black;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor:pointer;
+}
+
+.content-popup img{
+  width: 30px;
+  height: 30px;
 }

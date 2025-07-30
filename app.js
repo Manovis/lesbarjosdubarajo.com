@@ -132,6 +132,18 @@ function showView(view) {
   currentView = view;
 }
 
+// Ouverture/fermeture pop-up
+const showPopup = (popupname) => {
+  document.querySelectorAll('.overlay-popup').forEach(p => 
+    p.classList.remove('active-popup')
+  );
+  document.getElementById(popupname).classList.add('active-popup');
+};
+
+const closePopup = (popupname) => {
+  document.getElementById(popupname).classList.remove('active-popup');
+};
+
 // ===============================
 // FONCTIONS MODALE PHOTO
 // ===============================
