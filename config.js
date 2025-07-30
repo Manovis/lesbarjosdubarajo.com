@@ -6,10 +6,15 @@ const BARJOS_CONFIG = {
     description:
       "Le barjo le plus costaud, lui aussi il est tombé dans a la potion.",
   },
+  alex: {
+    name: "Alex",
+    description:
+      "Certainement le barjo le plus lourd, si tu as vu un mec vider une bouteille de Get dans la bouche d'un autre, c'est certainement lui!",
+  },
   axelle: {
     name: "Axelle",
     description:
-      "Barjo legéndaire de type agoraphobe. Si vous la croisé, restez calme.",
+      "Barjo legéndaire de type agoraphobe. Si vous la croisé, restez calme, sinon vous la ferez fuir!",
   },
   cecilia: {
     name: "Cecilia",
@@ -22,16 +27,21 @@ const BARJOS_CONFIG = {
   },
   elodie: {
     name: "Elo",
-    description: ".",
+    description: "La barjo la plus à l'ouest, au sens propre comme au sens figuré.",
   },
   eva: {
     name: "Eva",
-    description: ".",
+    description: "Notre barjo la plus peace. Attention: fume des clopes après quelques verres.",
   },
   fefe: {
     name: "Fefe",
     description:
-      "Le seul gardois que l'on tolère. Si vous avez une envie de footing nocturne, n'hésitez pas.",
+      "Le seul barjo gardois que l'on tolère. Si vous avez une envie de footing nocturne, n'hésitez pas.",
+  },
+  florian: {
+    name: "flo",
+    description:
+      "Le barjo le plus fou sans aucun doute, ses enfants l'ont bien calmés. Il a aussi des cuisses à la place des biceps.",
   },
   gael: {
     name: "Gael",
