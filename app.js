@@ -91,9 +91,11 @@ function renderCollection() {
 
     const miniBarjo = document.createElement("div");
     miniBarjo.className = `mini-barjo ${isCollected ? "collected" : "missing"}`;
-    miniBarjo.innerHTML = isCollected
-      ? `<img src="${photoUrl}" alt="${barjo.name}" style="width:100%;height:100%;border-radius:8px;object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='✅';">`
-      : "❓";
+    miniBarjo.innerHTML = `<img src="${photoUrl}" alt="${barjo.name}" style="width:100%;height:100%;border-radius:8px;object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='✅';">`;
+    if (!isCollected)
+    {
+      
+    }
 
     if (isCollected) {
       miniBarjo.title = barjo.name;

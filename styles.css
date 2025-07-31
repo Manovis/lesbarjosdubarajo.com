@@ -191,6 +191,7 @@ body {
 .mini-barjo.missing {
   background: rgba(255, 255, 255, 0.05);
   opacity: 0.5;
+  filter: blur(6px);
 }
 
 .navigation {
