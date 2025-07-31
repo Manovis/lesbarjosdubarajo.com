@@ -9,13 +9,18 @@ body {
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   min-height: 100vh;
   color: white;
+  /* Évite le zoom sur les inputs sur iOS */
+  -webkit-text-size-adjust: 100%;
+  /* Améliore le défilement sur mobile */
+  -webkit-overflow-scrolling: touch;
 }
 
 .pokedex-container {
   position: relative;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,58 +28,66 @@ body {
 
 .header {
   text-align: center;
-  margin-bottom: 30px;
-  padding: 20px;
+  margin-bottom: 20px;
+  padding: 15px 10px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   backdrop-filter: blur(10px);
 }
 
 .title {
-  font-size: 24px;
+  font-size: clamp(18px, 5vw, 24px);
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: clamp(12px, 3vw, 14px);
   opacity: 0.8;
 }
 
 .stats {
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
-  padding: 15px;
+  margin: 15px 0;
+  padding: 12px 8px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   backdrop-filter: blur(10px);
+  gap: 5px;
 }
 
 .stat {
   text-align: center;
+  flex: 1;
 }
 
 .stat-number {
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
   font-weight: bold;
   color: #ffd700;
+  line-height: 1;
 }
 
 .stat-label {
-  font-size: 12px;
+  font-size: clamp(10px, 2.5vw, 12px);
   opacity: 0.8;
+  margin-top: 2px;
 }
 
 .barjo-card {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 15px;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 15px;
+  margin-bottom: 15px;
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
+  /* Empêche la sélection de texte accidentelle */
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .barjo-card.new {
@@ -83,8 +96,7 @@ body {
 }
 
 @keyframes glow {
-  0%,
-  100% {
+  0%, 100% {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
   }
   50% {
@@ -93,22 +105,24 @@ body {
 }
 
 .barjo-photo {
-  width: 120px;
-  height: 120px;
+  width: clamp(100px, 25vw, 120px);
+  height: clamp(100px, 25vw, 120px);
   border-radius: 50%;
   margin: 0 auto 15px;
   background: rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 48px;
+  font-size: clamp(36px, 8vw, 48px);
   border: 3px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
+  /* Améliore les interactions tactiles */
+  touch-action: manipulation;
 }
 
-.barjo-photo:hover {
-  transform: scale(1.05);
+.barjo-photo:active {
+  transform: scale(0.95);
   border-color: #ffd700;
 }
 
@@ -124,23 +138,26 @@ body {
 }
 
 .barjo-name {
-  font-size: 20px;
+  font-size: clamp(16px, 4vw, 20px);
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: #ffd700;
+  line-height: 1.2;
 }
 
 .barjo-description {
-  font-size: 14px;
+  font-size: clamp(12px, 3vw, 14px);
   opacity: 0.9;
   line-height: 1.4;
+  padding: 0 5px;
 }
 
 .collection-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 10px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 8px;
+  margin-top: 15px;
+  padding: 0 5px;
 }
 
 .mini-barjo {
@@ -150,10 +167,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: clamp(10px, 2.5vw, 12px);
   text-align: center;
   border: 2px solid transparent;
   transition: all 0.3s ease;
+  padding: 4px;
+  /* Améliore les interactions tactiles */
+  touch-action: manipulation;
+  min-height: 70px;
 }
 
 .mini-barjo.collected {
@@ -162,9 +183,9 @@ body {
   cursor: pointer;
 }
 
-.mini-barjo.collected:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+.mini-barjo.collected:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
 }
 
 .mini-barjo.missing {
@@ -175,35 +196,47 @@ body {
 .navigation {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
+  gap: 8px;
+  margin: 15px 0;
+  padding: 0 10px;
 }
 
 .nav-btn {
-  padding: 10px 20px;
+  padding: 12px 20px;
   background: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 20px;
   color: white;
   cursor: pointer;
   font-family: inherit;
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: bold;
   transition: all 0.3s ease;
+  flex: 1;
+  max-width: 150px;
+  /* Améliore les interactions tactiles */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav-btn:hover,
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
 .nav-btn.active {
   background: rgba(255, 215, 0, 0.3);
-  border-color: #ffd700;
+  border: 2px solid #ffd700;
 }
 
 .success-message {
   background: rgba(0, 255, 0, 0.2);
   border: 2px solid #00ff00;
   border-radius: 10px;
-  padding: 15px;
+  padding: 12px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   animation: fadeIn 0.5s ease-in;
+  font-size: clamp(12px, 3vw, 14px);
 }
 
 @keyframes fadeIn {
@@ -221,7 +254,7 @@ body {
   display: none;
 }
 
-/* MODALE PHOTO */
+/* MODALE PHOTO OPTIMISÉE MOBILE */
 .photo-modal {
   position: fixed;
   top: 0;
@@ -232,6 +265,7 @@ body {
   display: none;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .photo-modal.active {
@@ -246,12 +280,14 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(5px);
+  /* Permet de fermer en cliquant sur le backdrop */
+  touch-action: manipulation;
 }
 
 .modal-content {
   position: relative;
   max-width: 90vw;
-  max-height: 90vh;
+  max-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -260,32 +296,35 @@ body {
 
 .modal-close {
   position: absolute;
-  top: -40px;
+  top: -50px;
   right: 0;
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
-  width: 35px;
-  height: 35px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  /* Améliore les interactions tactiles */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.modal-close:hover {
+.modal-close:active {
   background: rgba(255, 0, 0, 0.7);
-  transform: scale(1.1);
+  transform: scale(0.9);
 }
 
 .modal-image {
   max-width: 100%;
-  max-height: 70vh;
+  max-height: 60vh;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   object-fit: contain;
@@ -293,7 +332,7 @@ body {
 
 .modal-title {
   color: white;
-  font-size: 20px;
+  font-size: clamp(16px, 4vw, 20px);
   font-weight: bold;
   margin-top: 15px;
   text-align: center;
@@ -302,177 +341,328 @@ body {
   padding: 8px 16px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
+  max-width: 90vw;
+  line-height: 1.2;
 }
 
-.footer{
-    position: relative;
-    display: flex;
-    flex-direction: line;
-    justify-content: space-around;
+/* FOOTER OPTIMISÉ MOBILE */
+.footer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+  margin-top: auto;
+  gap: 8px;
 }
 
-.overlay-popup{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: none;
-    z-index: 1000;
+/* POPUP/OVERLAY OPTIMISÉ MOBILE */
+.overlay-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 15px;
 }
 
-.active-popup{
-    display: flex !important;
+.active-popup {
+  display: flex !important;
 }
 
-.content-popup{
-    position: relative;
-    min-width: 400px;
-    max-width: 800px;
-    min-height: 500px;
-    padding: 40px;
-    background-color: #FFF;
-    border-radius: 20px;
-    color: black;
-    display: flex;
-    flex-direction: column;
+.content-popup {
+  position: relative;
+  width: 100%;
+  max-width: 90vw;
+  max-height: 85vh;
+  min-height: 300px;
+  padding: 25px 15px 15px 15px;
+  background-color: #FFF;
+  border-radius: 15px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-.content-popup .close-btn{
-    border: 0px;
-    background-color: #FFF;
-    color: black;
-    font-size: 1.5rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    
+.content-popup .close-btn {
+  border: 0px;
+  background-color: #FFF;
+  color: black;
+  font-size: clamp(18px, 4vw, 24px);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  /* Améliore les interactions tactiles */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.3s ease;
 }
 
-.content-popup .close-btn:hover{
-    background-color: #f0f0f0;
+.content-popup .close-btn:active {
+  background-color: #f0f0f0;
+  transform: scale(0.9);
 }
 
-.content-popup img{
-    width: 30px;
-    height: 30px;
+.content-popup img {
+  width: clamp(24px, 6vw, 30px);
+  height: clamp(24px, 6vw, 30px);
 }
 
-/* Styles pour la pagination */
+/* PAGINATION OPTIMISÉE MOBILE */
 .page-content {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 20px;
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding-right: 5px;
 }
 
 .page {
-    display: none;
+  display: none;
 }
 
 .page.active {
-    display: block;
+  display: block;
 }
 
 .pagination-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 2px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 2px solid #eee;
+  gap: 10px;
 }
 
 .nav-button {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-family: "Courier New", monospace;
-    font-size: 14px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    min-width: 100px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: "Courier New", monospace;
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: bold;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  flex-shrink: 0;
+  /* Améliore les interactions tactiles */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+.nav-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .nav-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .page-indicator {
-    display: flex;
-    gap: 8px;
-    align-items: center;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ddd;
-    transition: all 0.3s ease;
+  width: clamp(10px, 2.5vw, 12px);
+  height: clamp(10px, 2.5vw, 12px);
+  border-radius: 50%;
+  background: #ddd;
+  transition: all 0.3s ease;
 }
 
 .dot.active {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    transform: scale(1.2);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  transform: scale(1.2);
 }
 
-/* Styles pour le contenu */
+/* STYLES POUR LE CONTENU OPTIMISÉS MOBILE */
 h2 {
-    color: #1e3c72;
-    margin-bottom: 20px;
-    text-align: center;
+  color: #1e3c72;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: clamp(18px, 4vw, 24px);
+  line-height: 1.2;
 }
 
 h3 {
-    color: #2a5298;
-    margin: 20px 0 10px 0;
+  color: #2a5298;
+  margin: 15px 0 8px 0;
+  font-size: clamp(16px, 3.5vw, 20px);
+  line-height: 1.3;
 }
 
 p {
-    line-height: 1.6;
-    margin-bottom: 15px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  font-size: clamp(13px, 3vw, 16px);
 }
 
 em {
-    background: #f0f8ff;
-    padding: 10px;
-    border-radius: 8px;
-    display: block;
-    margin: 10px 0;
-    border-left: 4px solid #2a5298;
+  background: #f0f8ff;
+  padding: 8px;
+  border-radius: 8px;
+  display: block;
+  margin: 8px 0;
+  border-left: 4px solid #2a5298;
+  font-size: clamp(12px, 2.8vw, 14px);
+  line-height: 1.4;
 }
 
 .reward-list {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .reward-list li {
-    background: #f9f9f9;
+  background: #f9f9f9;
+  padding: 8px;
+  margin: 6px 0;
+  border-radius: 8px;
+  border-left: 4px solid #ffd700;
+  font-size: clamp(12px, 2.8vw, 14px);
+  line-height: 1.4;
+}
+
+/* MEDIA QUERIES POUR DIFFÉRENTES TAILLES D'ÉCRAN */
+
+/* Très petits écrans (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .pokedex-container {
+    padding: 8px;
+  }
+  
+  .header {
+    padding: 12px 8px;
+    margin-bottom: 15px;
+  }
+  
+  .stats {
+    padding: 10px 6px;
+  }
+  
+  .barjo-card {
+    padding: 12px;
+  }
+  
+  .collection-grid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 6px;
+  }
+  
+  .mini-barjo {
+    min-height: 60px;
+    padding: 2px;
+  }
+  
+  .content-popup {
+    padding: 20px 12px 12px 12px;
+    margin: 10px;
+  }
+  
+  .nav-button {
+    min-width: 70px;
+    padding: 10px 12px;
+  }
+}
+
+/* Écrans moyens (iPhone 12, 13, etc.) */
+@media (min-width: 376px) and (max-width: 414px) {
+  .collection-grid {
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  }
+  
+  .content-popup {
+    max-width: 95vw;
+  }
+}
+
+/* Grands écrans mobiles et petites tablettes */
+@media (min-width: 415px) and (max-width: 768px) {
+  .pokedex-container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+  
+  .collection-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+  
+  .content-popup {
+    max-width: 500px;
+    min-height: 400px;
+    padding: 30px 20px 20px 20px;
+  }
+}
+
+/* Mode paysage mobile */
+@media (orientation: landscape) and (max-height: 500px) {
+  .barjo-photo {
+    width: clamp(80px, 20vw, 100px);
+    height: clamp(80px, 20vw, 100px);
+  }
+  
+  .header {
+    margin-bottom: 15px;
     padding: 10px;
-    margin: 8px 0;
-    border-radius: 8px;
-    border-left: 4px solid #ffd700;
+  }
+  
+  .stats {
+    margin: 10px 0;
+  }
+  
+  .modal-image {
+    max-height: 70vh;
+  }
+  
+  .content-popup {
+    max-height: 90vh;
+    min-height: 250px;
+  }
+}
+
+/* Améliore l'accessibilité sur les appareils tactiles */
+@media (hover: none) and (pointer: coarse) {
+  /* Augmente légèrement les zones tactiles */
+  .nav-btn {
+    padding: 14px 22px;
+  }
+  
+  .barjo-photo {
+    border-width: 4px;
+  }
+  
+  .modal-close, .content-popup .close-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+  
+  .nav-button {
+    min-height: 44px;
+    padding: 12px 18px;
+  }
 }
