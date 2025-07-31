@@ -225,6 +225,7 @@ function openPhotoModal(photoUrl, barjoName, barjoRarity, barjoDescription) {
                 <button class="modal-close" onclick="closePhotoModal()">✕</button>
                 <img class="modal-image" src="" alt="">
                 <div class="modal-title"></div>
+                <div class="modal-description"></div>
             </div>
         `;
     document.body.appendChild(modal);
@@ -233,9 +234,11 @@ function openPhotoModal(photoUrl, barjoName, barjoRarity, barjoDescription) {
   // Mettre à jour le contenu
   const modalImg = modal.querySelector(".modal-image");
   const modalTitle = modal.querySelector(".modal-title");
+  const modalDescr = modal.querySelector(".modal-description");
 
   modalImg.src = photoUrl;
   modalImg.alt = barjoName;
+  modalDescr.textContent = barjoDescription;
   modalImg.className = `modal-image rarity-${barjoRarity}`; // CORRECTION: Ajouter la classe de rareté
   modalTitle.textContent = barjoName;
 
