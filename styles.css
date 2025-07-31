@@ -77,6 +77,8 @@ body {
   margin-top: 2px;
 }
 
+
+
 .barjo-card {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 15px;
@@ -178,8 +180,6 @@ body {
 }
 
 .mini-barjo.collected {
-  background: rgba(255, 215, 0, 0.3);
-  border-color: #ffd700;
   cursor: pointer;
 }
 
@@ -190,9 +190,62 @@ body {
 
 .mini-barjo.missing {
   background: rgba(255, 255, 255, 0.05);
-  opacity: 0.5;
   filter: blur(6px);
 }
+
+/* SYSTÈME DE RARETÉ - COULEURS */
+:root {
+  --rarity-common: #9e9e9e;      /* Gris */
+  --rarity-uncommon: #4caf50;    /* Vert */
+  --rarity-rare: #2196f3;       /* Bleu */
+  --rarity-legendary: #ff9800;   /* Orange doré */
+}
+
+/* RARETÉ - Collection (mini-barjos non découverts) */
+.mini-barjo.missing.rarity-common {
+  border-color: rgba(216, 215, 215, 0.712);
+  border-width: 3px;
+}
+
+.mini-barjo.missing.rarity-uncommon {
+  border-color: rgba(11, 209, 17, 0.753);
+  border-width: 3px;
+}
+
+.mini-barjo.missing.rarity-rare {
+  border-color: rgba(27, 109, 218, 0.767);
+  border-width: 3px;
+}
+
+.mini-barjo.missing.rarity-legendary {
+  border-color: rgba(255, 153, 0, 0.767);
+  border-width: 3px;
+}
+
+/* RARETÉ - Collection (mini-barjos collectés) */
+.mini-barjo.collected.rarity-common {
+  border-color: var(--rarity-common);
+  background: rgba(158, 158, 158, 0.2);
+}
+
+.mini-barjo.collected.rarity-uncommon {
+  border-color: var(--rarity-uncommon);
+  background: rgba(76, 175, 80, 0.2);
+}
+
+.mini-barjo.collected.rarity-rare {
+  border-color: var(--rarity-rare);
+  background: rgba(33, 150, 243, 0.2);
+}
+
+.mini-barjo.collected.rarity-legendary {
+  border-color: var(--rarity-legendary);
+  background: rgba(255, 152, 0, 0.2);
+  box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
+}
+
+
+
 
 .navigation {
   display: flex;
@@ -329,6 +382,46 @@ body {
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   object-fit: contain;
+}
+
+/* RARETÉ - Modale photo agrandie */
+.modal-image.rarity-common {
+  border: 4px solid var(--rarity-common);
+  border-width: 3px;
+}
+
+.modal-image.rarity-uncommon {
+  border: 4px solid var(--rarity-uncommon);
+  border-width: 3px;
+}
+
+.modal-image.rarity-rare {
+  border: 4px solid var(--rarity-rare);
+  border-width: 3px;
+}
+
+.modal-image.rarity-legendary {
+  border: 4px solid var(--rarity-legendary);
+  border-width: 3px;
+  box-shadow: 0 0 25px rgba(255, 153, 0, 0.767), 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ANIMATION SPÉCIALE pour les légendaires */
+@keyframes legendary-glow {
+  0%, 100% {
+    box-shadow: 0 0 200px rgba(255, 152, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 100px rgba(255, 152, 0, 0.8);
+  }
+}
+
+.barjo-photo.rarity-legendary:not(:active) {
+  animation: legendary-glow 3s ease-in-out infinite;
+}
+
+.modal-image.rarity-legendary {
+  animation: legendary-glow 3s ease-in-out infinite;
 }
 
 .modal-title {
@@ -497,6 +590,24 @@ body {
 .dot.active {
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   transform: scale(1.2);
+}
+
+/* RARETÉ - Photo principale (vue actuelle) */
+.barjo-photo.rarity-common {
+  border-color: var(--rarity-common);
+}
+
+.barjo-photo.rarity-uncommon {
+  border-color: var(--rarity-uncommon);
+}
+
+.barjo-photo.rarity-rare {
+  border-color: var(--rarity-rare);
+}
+
+.barjo-photo.rarity-legendary {
+  border-color: var(--rarity-legendary);
+  box-shadow: 0 0 15px rgba(255, 152, 0, 0.4);
 }
 
 /* STYLES POUR LE CONTENU OPTIMISÉS MOBILE */

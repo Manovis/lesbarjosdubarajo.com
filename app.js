@@ -4,8 +4,6 @@ let collectedBarjos = JSON.parse(
 );
 let currentView = "current";
 
-
-
 // Initialisation de l'application
 document.addEventListener("DOMContentLoaded", function () {
   updateStats();
@@ -45,7 +43,7 @@ function displayCurrentBarjo(barjoId, isNew = false) {
   const photoUrl = getBarjoPhotoUrl(barjoId);
 
   currentBarjoElement.innerHTML = `
-        <div class="barjo-photo" onclick="openPhotoModal('${photoUrl}', '${barjo.name}')">
+        <div class="barjo-photo rarity-${barjo.rarity}" onclick="openPhotoModal('${photoUrl}', '${barjo.name}', '${barjo.rarity}')">
             <img src="${photoUrl}" alt="${barjo.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='🤪';">
         </div>
         <div class="barjo-info">
@@ -90,19 +88,17 @@ function renderCollection() {
     const photoUrl = getBarjoPhotoUrl(barjoId);
 
     const miniBarjo = document.createElement("div");
-    miniBarjo.className = `mini-barjo ${isCollected ? "collected" : "missing"}`;
+    
+    // CORRECTION: La classe de rareté est bien ajoutée
+    miniBarjo.className = `mini-barjo ${isCollected ? "collected" : "missing"} rarity-${barjo.rarity}`;
     miniBarjo.innerHTML = `<img src="${photoUrl}" alt="${barjo.name}" style="width:100%;height:100%;border-radius:8px;object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='✅';">`;
-    if (!isCollected)
-    {
-      
-    }
 
     if (isCollected) {
       miniBarjo.title = barjo.name;
       miniBarjo.onclick = (event) => {
         // Si on clique sur l'image, ouvrir la modale
         if (event.target.tagName === "IMG") {
-          openPhotoModal(photoUrl, barjo);
+          openPhotoModal(photoUrl, barjo.name, barjo.rarity, barjo.description);
         } else {
           // Sinon, afficher le Barjo
           displayCurrentBarjo(barjoId);
@@ -110,7 +106,7 @@ function renderCollection() {
         }
       };
     } else {
-      miniBarjo.title = "Barjo manquant";
+      miniBarjo.title = `Barjo manquant (${barjo.rarity})`;
     }
 
     grid.appendChild(miniBarjo);
@@ -123,7 +119,12 @@ function showView(view) {
   document
     .querySelectorAll(".nav-btn")
     .forEach((btn) => btn.classList.remove("active"));
-  event.target.classList.add("active");
+  
+  // CORRECTION: Utiliser le bon sélecteur pour les boutons
+  const clickedBtn = event?.target || document.querySelector(`[onclick="showView('${view}')"]`);
+  if (clickedBtn) {
+    clickedBtn.classList.add("active");
+  }
 
   // Show/hide views
   document
@@ -211,8 +212,7 @@ document.getElementById('instructions').addEventListener('click', function(e) {
 // ===============================
 // FONCTIONS MODALE PHOTO
 // ===============================
-
-function openPhotoModal(photoUrl, barjo) {
+function openPhotoModal(photoUrl, barjoName, barjoRarity, barjoDescription) {
   // Créer la modale si elle n'existe pas
   let modal = document.getElementById("photo-modal");
   if (!modal) {
@@ -225,7 +225,6 @@ function openPhotoModal(photoUrl, barjo) {
                 <button class="modal-close" onclick="closePhotoModal()">✕</button>
                 <img class="modal-image" src="" alt="">
                 <div class="modal-title"></div>
-                <div class="modal-description"></div>
             </div>
         `;
     document.body.appendChild(modal);
@@ -234,12 +233,11 @@ function openPhotoModal(photoUrl, barjo) {
   // Mettre à jour le contenu
   const modalImg = modal.querySelector(".modal-image");
   const modalTitle = modal.querySelector(".modal-title");
-  const modalDescr = modal.querySelector(".modal-description");
 
   modalImg.src = photoUrl;
-  modalImg.alt = barjo.name;
-  modalTitle.textContent = barjo.name;
-  modalDescr.textContent = barjo.description;
+  modalImg.alt = barjoName;
+  modalImg.className = `modal-image rarity-${barjoRarity}`; // CORRECTION: Ajouter la classe de rareté
+  modalTitle.textContent = barjoName;
 
   // Afficher la modale
   modal.classList.add("active");
