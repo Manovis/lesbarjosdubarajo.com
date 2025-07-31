@@ -14,13 +14,16 @@
       <div class="title">POKÉDEX DES BARJOS</div>
       <div class="subtitle">Les Barjos du Barajo</div>
     </div>
-    
+
     <div class="navigation">
       <button class="nav-btn active" onclick="showView('current')">
         ACTUEL
       </button>
       <button class="nav-btn" onclick="showView('collection')">
         COLLECTION
+      </button>
+      <button class="nav-btn" onclick="showView('rewards')">
+        RECOMPENSES
       </button>
     </div>
 
@@ -45,22 +48,94 @@
 
     <div id="collection-view" class="hidden">
       <div class="stats">
-      <div class="stat">
-        <div class="stat-number" id="collected-count">0</div>
-        <div class="stat-label">CAPTURÉS</div>
+        <div class="stat">
+          <div class="stat-number" id="collected-count">0</div>
+          <div class="stat-label">CAPTURÉS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" id="total-count">0</div>
+          <div class="stat-label">TOTAL</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" id="completion-rate">0%</div>
+          <div class="stat-label">COMPLÉTÉ</div>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-number" id="total-count">0</div>
-        <div class="stat-label">TOTAL</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number" id="completion-rate">0%</div>
-        <div class="stat-label">COMPLÉTÉ</div>
-      </div>
-    </div>
 
       <div class="collection-grid" id="collection-grid">
         <!-- Collection items will be generated here -->
+      </div>
+    </div>
+
+    <div id="rewards-view" class="hidden">
+      <div class="rewards-container">
+        <div class="rewards-title">🏆 RÉCOMPENSES 🏆</div>
+
+        <div class="rewards-list">
+          <!-- Récompense Communes -->
+          <div class="reward-item common" data-type="common">
+            <div class="progress-badge">
+              <div class="progress-circle">
+                <div class="progress-fill" style="--progress-angle: 154deg;"></div>
+                <div class="progress-icon">🥉</div>
+              </div>
+              <div class="progress-text"></div>
+            </div>
+            <div class="reward-content">
+              <div class="reward-title">Badge Bronze</div>
+              <div class="reward-description">Collectez 7 Barjos communs pour débloquer votre premier badge !</div>
+              <div class="reward-counter"></div>
+            </div>
+          </div>
+
+          <!-- Récompense Peu communes -->
+          <div class="reward-item uncommon" data-type="uncommon">
+            <div class="progress-badge">
+              <div class="progress-circle">
+                <div class="progress-fill" style="--progress-angle: 90deg;"></div>
+                <div class="progress-icon">🌟</div>
+              </div>
+              <div class="progress-text"></div>
+            </div>
+            <div class="reward-content">
+              <div class="reward-title">Étoile Verte</div>
+              <div class="reward-description">Trouvez 4 Barjos peu communs pour obtenir cette récompense spéciale.</div>
+              <div class="reward-counter"></div>
+            </div>
+          </div>
+
+          <!-- Récompense Rare -->
+          <div class="reward-item rare" data-type="rare">
+            <div class="progress-badge">
+              <div class="progress-circle">
+                <div class="progress-fill" style="--progress-angle: 0deg;"></div>
+                <div class="progress-icon">💎</div>
+              </div>
+              <div class="progress-text"></div>
+            </div>
+            <div class="reward-content">
+              <div class="reward-title">Diamant Bleu</div>
+              <div class="reward-description">Découvrez un Barjo rare pour obtenir ce précieux diamant.</div>
+              <div class="reward-counter"></div>
+            </div>
+          </div>
+
+          <!-- Récompense Légendaire -->
+          <div class="reward-item legendary unlocked" data-type="legendary">
+            <div class="progress-badge">
+              <div class="progress-circle">
+                <div class="progress-fill" style="--progress-angle: 360deg;"></div>
+                <div class="progress-icon">👑</div>
+              </div>
+              <div class="progress-text"></div>
+            </div>
+            <div class="reward-content">
+              <div class="reward-title">Couronne Légendaire</div>
+              <div class="reward-description">Capturez le Barjo légendaire pour cette récompense ultime !</div>
+              <div class="reward-counter"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -140,7 +215,7 @@
             <div class="dot" onclick="goToPage(2)"></div>
             <div class="dot" onclick="goToPage(3)"></div>
             <div class="dot" onclick="goToPage(4)"></div>
-            
+
           </div>
 
           <button class="nav-button" id="nextBtn" onclick="changePage(1)">
@@ -157,14 +232,15 @@
         </button>
 
         <div class="page-content">
-            <h2>Informations</h2>
-            <p>
-              Ce jeu a été imaginé avec passion. Si celui-ci vous a inspiré pour créer votre propre contenu,
-              n'hésitez pas à vous rapprocher du créateur. C'est toujours un plaisir d'échanger autour de nouvelles idées ou de projets dérivés !
-            </p>
-            <p>
-              Contactez-moi directement pour toute question, proposition ou collaboration.
-    </p>
+          <h2>Informations</h2>
+          <p>
+            Ce jeu a été imaginé avec passion. Si celui-ci vous a inspiré pour créer votre propre contenu,
+            n'hésitez pas à vous rapprocher du créateur. C'est toujours un plaisir d'échanger autour de nouvelles idées
+            ou de projets dérivés !
+          </p>
+          <p>
+            Contactez-moi directement pour toute question, proposition ou collaboration.
+          </p>
         </div>
       </div>
     </div>

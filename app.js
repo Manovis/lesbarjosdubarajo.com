@@ -8,6 +8,7 @@ let currentView = "current";
 document.addEventListener("DOMContentLoaded", function () {
   updateStats();
   renderCollection();
+  updateAllRewards();
 
   // Vérifier si on arrive via QR code
   const urlParams = new URLSearchParams(window.location.search);
@@ -34,6 +35,7 @@ function collectBarjo(barjoId) {
   displayCurrentBarjo(barjoId, isNewCollection);
   updateStats();
   renderCollection();
+  updateAllRewards();
 }
 
 // Afficher le Barjo actuellement scanné
@@ -88,7 +90,7 @@ function renderCollection() {
     const photoUrl = getBarjoPhotoUrl(barjoId);
 
     const miniBarjo = document.createElement("div");
-    
+
     // CORRECTION: La classe de rareté est bien ajoutée
     miniBarjo.className = `mini-barjo ${isCollected ? "collected" : "missing"} rarity-${barjo.rarity}`;
     miniBarjo.innerHTML = `<img src="${photoUrl}" alt="${barjo.name}" style="width:100%;height:100%;border-radius:8px;object-fit:cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='✅';">`;
@@ -119,7 +121,7 @@ function showView(view) {
   document
     .querySelectorAll(".nav-btn")
     .forEach((btn) => btn.classList.remove("active"));
-  
+
   // CORRECTION: Utiliser le bon sélecteur pour les boutons
   const clickedBtn = event?.target || document.querySelector(`[onclick="showView('${view}')"]`);
   if (clickedBtn) {
@@ -133,6 +135,9 @@ function showView(view) {
   document
     .getElementById("collection-view")
     .classList.toggle("hidden", view !== "collection");
+  document
+    .getElementById("rewards-view")
+    .classList.toggle("hidden", view !== "rewards");
 
   currentView = view;
 }
@@ -146,67 +151,67 @@ const totalPages = 4;
 
 // Affichage pop-up
 const showPopup = (popupname) => {
-    document.querySelectorAll('.overlay-popup').forEach(p => 
-        p.classList.remove('active-popup')
-    );
-    document.getElementById(popupname).classList.add('active-popup');
-    // Reset à la première page quand on ouvre
-    goToPage(1);
+  document.querySelectorAll('.overlay-popup').forEach(p =>
+    p.classList.remove('active-popup')
+  );
+  document.getElementById(popupname).classList.add('active-popup');
+  // Reset à la première page quand on ouvre
+  goToPage(1);
 };
 
 const closePopup = (popupname) => {
-    document.getElementById(popupname).classList.remove('active-popup');
+  document.getElementById(popupname).classList.remove('active-popup');
 };
 
 // Fonctions de pagination
 function changePage(direction) {
-    const newPage = currentPage + direction;
-    if (newPage >= 1 && newPage <= totalPages) {
-        goToPage(newPage);
-    }
+  const newPage = currentPage + direction;
+  if (newPage >= 1 && newPage <= totalPages) {
+    goToPage(newPage);
+  }
 }
 
 function goToPage(pageNumber) {
-    if (pageNumber < 1 || pageNumber > totalPages) return;
-    
-    // Masquer toutes les pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    
-    // Afficher la page sélectionnée
-    document.querySelector(`[data-page="${pageNumber}"]`).classList.add('active');
-    
-    // Mettre à jour les indicateurs
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-        dot.classList.toggle('active', index + 1 === pageNumber);
-    });
-    
-    // Gérer les boutons précédent/suivant
-    document.getElementById('prevBtn').disabled = pageNumber === 1;
-    document.getElementById('nextBtn').disabled = pageNumber === totalPages;
-    
-    currentPage = pageNumber;
+  if (pageNumber < 1 || pageNumber > totalPages) return;
+
+  // Masquer toutes les pages
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  // Afficher la page sélectionnée
+  document.querySelector(`[data-page="${pageNumber}"]`).classList.add('active');
+
+  // Mettre à jour les indicateurs
+  document.querySelectorAll('.dot').forEach((dot, index) => {
+    dot.classList.toggle('active', index + 1 === pageNumber);
+  });
+
+  // Gérer les boutons précédent/suivant
+  document.getElementById('prevBtn').disabled = pageNumber === 1;
+  document.getElementById('nextBtn').disabled = pageNumber === totalPages;
+
+  currentPage = pageNumber;
 }
 
 // Navigation au clavier
-document.addEventListener('keydown', function(e) {
-    if (document.querySelector('.overlay-popup.active-popup')) {
-        if (e.key === 'ArrowLeft') {
-            changePage(-1);
-        } else if (e.key === 'ArrowRight') {
-            changePage(1);
-        } else if (e.key === 'Escape') {
-            closePopup('instructions');
-        }
+document.addEventListener('keydown', function (e) {
+  if (document.querySelector('.overlay-popup.active-popup')) {
+    if (e.key === 'ArrowLeft') {
+      changePage(-1);
+    } else if (e.key === 'ArrowRight') {
+      changePage(1);
+    } else if (e.key === 'Escape') {
+      closePopup('instructions');
     }
+  }
 });
 
 // Fermer en cliquant à l'extérieur
-document.getElementById('instructions').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closePopup('instructions');
-    }
+document.getElementById('instructions').addEventListener('click', function (e) {
+  if (e.target === this) {
+    closePopup('instructions');
+  }
 });
 
 // ===============================
@@ -262,6 +267,94 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+// Fonction pour compter les Barjos collectés par rareté
+function getCollectedByRarity() {
+  const counts = {
+    common: 0,
+    uncommon: 0,
+    rare: 0,
+    legendary: 0
+  };
+
+  collectedBarjos.forEach(barjoId => {
+    const barjo = BARJOS_CONFIG[barjoId];
+    if (barjo && barjo.rarity) {
+      counts[barjo.rarity]++;
+    }
+  });
+
+  return counts;
+}
+
+// Fonction pour mettre à jour toutes les récompenses
+function updateAllRewards() {
+  const counts = getCollectedByRarity();
+  
+  // Récompense communes (7 barjos communs)
+  const commonReward = document.querySelector('.reward-item[data-type="common"]');
+  if (commonReward) {
+    updateRewardProgress(commonReward, counts.common, 7);
+  }
+  
+  // Récompense peu communes (4 barjos peu communs) 
+  const uncommonReward = document.querySelector('.reward-item[data-type="uncommon"]');
+  if (uncommonReward) {
+    updateRewardProgress(uncommonReward, counts.uncommon, 4);
+  }
+  
+  // Récompense rare (1 barjo rare)
+  const rareReward = document.querySelector('.reward-item[data-type="rare"]');
+  if (rareReward) {
+    updateRewardProgress(rareReward, counts.rare, 1);
+  }
+  
+  // Récompense légendaire (1 barjo légendaire)
+  const legendaryReward = document.querySelector('.reward-item[data-type="legendary"]');
+  if (legendaryReward) {
+    updateRewardProgress(legendaryReward, counts.legendary, 1);
+  }
+}
+
+// Fonction pour mettre à jour la progression d'une récompense (existante, améliorée)
+function updateRewardProgress(rewardElement, current, target) {
+  const progressFill = rewardElement.querySelector('.progress-fill');
+  const progressText = rewardElement.querySelector('.progress-text');
+  const descriptionText = rewardElement.querySelector('.reward-description');
+  const rewardCounter = rewardElement.querySelector('.reward-counter');
+
+  const percentage = Math.min((current / target) * 100, 100);
+  const angle = (percentage / 100) * 360;
+
+  progressFill.style.setProperty('--progress-angle', `${angle}deg`);
+  progressText.textContent = `${current}/${target}`;
+  
+  // Mettre à jour les attributs data pour garder trace
+  rewardElement.setAttribute('data-current', current);
+
+  if (current >= target) {
+    rewardElement.classList.add('unlocked');
+    descriptionText.textContent = '';
+    progressText.textContent = '';
+    rewardCounter.textContent = 'DÉBLOQUÉ ! 🎉 Viens chercher ta prime';
+    rewardCounter.style.color = '#ffd700';
+  } else {
+    rewardElement.classList.remove('unlocked');
+    rewardCounter.textContent = `Progression: ${Math.round(percentage)}%`;
+    rewardCounter.style.color = '#ffd700';
+  }
+}
+
+// Fonction pour afficher les statistiques de rareté (utile pour debug)
+function showRarityStats() {
+  const counts = getCollectedByRarity();
+  console.log('📊 Statistiques de collection par rareté:');
+  console.log(`🔸 Communs: ${counts.common}`);
+  console.log(`🔹 Peu communs: ${counts.uncommon}`);
+  console.log(`🔷 Rares: ${counts.rare}`);
+  console.log(`👑 Légendaires: ${counts.legendary}`);
+  return counts;
+}
+
 // Pour ajouter facilement des Barjos
 function addBarjo(id, name, description, photoUrl) {
   console.log(`Pour ajouter ${name}, ajoutez ceci dans BARJOS_CONFIG:`);
@@ -296,11 +389,11 @@ console.log("- localStorage.clear(): Reset la collection (pour les tests)");
 // Affichage automatique des instructions à la première visite
 const checkFirstVisit = () => {
   const hasVisited = localStorage.getItem('barjos-first-visit');
-  
+
   if (!hasVisited) {
     // Marquer comme visité
     localStorage.setItem('barjos-first-visit', 'true');
-    
+
     // Afficher les instructions après un court délai
     setTimeout(() => {
       showPopup('instructions');
