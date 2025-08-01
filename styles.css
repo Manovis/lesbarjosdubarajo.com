@@ -15,7 +15,7 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-.pokedex-container {
+.barjodex-container {
   position: relative;
   max-width: 100%;
   width: 100%;
@@ -872,7 +872,7 @@ em {
 
 /* Très petits écrans (iPhone SE, etc.) */
 @media (max-width: 375px) {
-  .pokedex-container {
+  .barjodex-container {
     padding: 8px;
   }
 
@@ -923,7 +923,7 @@ em {
 
 /* Grands écrans mobiles et petites tablettes */
 @media (min-width: 415px) and (max-width: 768px) {
-  .pokedex-container {
+  .barjodex-container {
     max-width: 450px;
     margin: 0 auto;
     padding: 15px;
