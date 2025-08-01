@@ -105,12 +105,26 @@ function displayCurrentBarjo(barjoId, isNew = false) {
   const currentBarjoElement = document.getElementById("current-barjo");
   const photoUrl = getBarjoPhotoUrl(barjoId);
 
+  let rarityTrad = "Légendaire";
+  if(barjo.rarity == "common")
+  {
+    rarityTrad = "Commun";
+  }
+  else if(barjo.rarity == "uncommon")
+  {
+    rarityTrad = "Peu commun";
+  }
+  if(barjo.rarity == "rare")
+  {
+    rarityTrad = "Rare";
+  }
+
   currentBarjoElement.innerHTML = `
         <div class="barjo-photo rarity-${barjo.rarity}" onclick="openPhotoModal('${photoUrl}', '${barjo.name}', '${barjo.rarity}')">
             <img src="${photoUrl}" alt="${barjo.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='🤪';">
         </div>
         <div class="barjo-info">
-            <div class="barjo-name">${barjo.name}</div>
+            <div class="barjo-name">${barjo.name} (${rarityTrad})</div>
             <div class="barjo-description">${barjo.description}</div>
         </div>
     `;

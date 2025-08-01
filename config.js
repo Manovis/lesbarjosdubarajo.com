@@ -4,7 +4,7 @@ const BARJOS_CONFIG = {
   alain: {
     name: "Alain",
     description:
-      "Le barjo le plus costaud, lui aussi il est tombé dans a la potion.",
+      "Le barjo le plus costaud, lui aussi il est tombé dans la potion.",
     rarity: "common",
   },
   alex: {
