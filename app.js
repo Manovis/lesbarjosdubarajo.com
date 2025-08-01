@@ -19,6 +19,67 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Gestion du formulaire de contact
+document.addEventListener('DOMContentLoaded', function () {
+  const contactForm = document.getElementById('contactForm');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const submitBtn = contactForm.querySelector('.submit-btn');
+      const feedbackDiv = document.getElementById('formFeedback');
+
+      // Désactiver le bouton pendant l'envoi
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours...';
+
+      // Effacer les messages précédents
+      feedbackDiv.innerHTML = '';
+
+      try {
+        // Préparer les données pour l'envoi
+        const emailData = {
+          to: 'barjodex.contact@gmail.com',
+          subject: 'Nouveau message depuis le Barjodex',
+          from: formData.get('email'),
+          name: formData.get('nom'),
+          message: formData.get('message')
+        };
+
+        await sendEmail(emailData);
+
+        // Succès
+        feedbackDiv.innerHTML = '<div class="form-success">✅ Votre message a été envoyé avec succès ! Nous vous répondrons rapidement.</div>';
+
+        // Réinitialiser le formulaire
+        contactForm.reset();
+
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi:', error);
+        feedbackDiv.innerHTML = '<div class="form-error">❌ Une erreur s\'est produite lors de l\'envoi. Veuillez réessayer.</div>';
+      } finally {
+        // Réactiver le bouton
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Envoyer le message';
+      }
+    });
+  }
+});
+
+// Fonction d'envoi d'email (à adapter selon votre service)
+async function sendEmail(emailData) {
+  // Option 1: Avec EmailJS (recommandé pour le frontend)
+  return emailjs.send('service_0qkqauo', 'template_pcuk4bk', {
+    to_email: emailData.to,
+    from_name: emailData.name,
+    from_email: emailData.from,
+    subject: emailData.subject,
+    message: emailData.message
+  });
+}
+
 // Fonction principale pour collecter un Barjo
 function collectBarjo(barjoId) {
   const barjo = BARJOS_CONFIG[barjoId];
@@ -289,25 +350,25 @@ function getCollectedByRarity() {
 // Fonction pour mettre à jour toutes les récompenses
 function updateAllRewards() {
   const counts = getCollectedByRarity();
-  
+
   // Récompense communes (7 barjos communs)
   const commonReward = document.querySelector('.reward-item[data-type="common"]');
   if (commonReward) {
     updateRewardProgress(commonReward, counts.common, 7);
   }
-  
+
   // Récompense peu communes (4 barjos peu communs) 
   const uncommonReward = document.querySelector('.reward-item[data-type="uncommon"]');
   if (uncommonReward) {
     updateRewardProgress(uncommonReward, counts.uncommon, 4);
   }
-  
+
   // Récompense rare (1 barjo rare)
   const rareReward = document.querySelector('.reward-item[data-type="rare"]');
   if (rareReward) {
     updateRewardProgress(rareReward, counts.rare, 1);
   }
-  
+
   // Récompense légendaire (1 barjo légendaire)
   const legendaryReward = document.querySelector('.reward-item[data-type="legendary"]');
   if (legendaryReward) {
@@ -327,7 +388,7 @@ function updateRewardProgress(rewardElement, current, target) {
 
   progressFill.style.setProperty('--progress-angle', `${angle}deg`);
   progressText.textContent = `${current}/${target}`;
-  
+
   // Mettre à jour les attributs data pour garder trace
   rewardElement.setAttribute('data-current', current);
 

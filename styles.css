@@ -155,6 +155,7 @@ body {
   opacity: 0.9;
   line-height: 1.4;
   padding: 0 5px;
+  text-align: center;
 }
 
 .collection-grid {
@@ -251,9 +252,6 @@ body {
   box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
 }
 
-
-
-
 .navigation {
   display: flex;
   justify-content: center;
@@ -328,6 +326,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  text-align: center;
 }
 
 .photo-modal.active {
@@ -840,6 +839,7 @@ p {
   line-height: 1.6;
   margin-bottom: 12px;
   font-size: clamp(13px, 3vw, 16px);
+  text-align: center;
 }
 
 em {
@@ -867,6 +867,103 @@ em {
   font-size: clamp(12px, 2.8vw, 14px);
   line-height: 1.4;
 }
+
+/* Formulaire de contact */
+    .contact-form {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #eccb0c;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 3px solid rgba(240, 237, 35, 0.89);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-family: inherit;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #ffd700;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgb(0, 0, 0);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: rgba(255, 215, 0, 0.3);
+      border: 2px solid #ffd700;
+      border-radius: 10px;
+      color: white;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: rgba(255, 215, 0, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .form-success {
+      background: rgba(0, 255, 0, 0.2);
+      border: 2px solid #00ff00;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .form-error {
+      background: rgba(255, 0, 0, 0.2);
+      border: 2px solid #ff0000;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
 
 /* MEDIA QUERIES POUR DIFFÉRENTES TAILLES D'ÉCRAN */
 
