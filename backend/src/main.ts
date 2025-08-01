@@ -9,6 +9,10 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000', // Pour le développement local
+      'http://localhost:5500', // Live Server (VS Code)
+      'http://127.0.0.1:5500', // Live Server alternative
+      'http://localhost:8080', // Autre serveur de dev courant
+      'http://127.0.0.1:8080', // Alternative
       'https://lesbarjosdubarajo.com', // Remplace par ton URL GitHub Pages
       'https://ton-domaine.web.app', // Pour Firebase Hosting plus tard
     ],
