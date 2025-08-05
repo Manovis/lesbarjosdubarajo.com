@@ -1,6 +1,12 @@
 // Configuration des Barjos
 
 const BARJOS_CONFIG = {
+  adey: {
+    name: "Adey",
+    description:
+      "La barjo la plus sensible, si vous la croisez souhaitez lui un joyeux anniversaire!",
+    rarity: "rare",
+  },
   alain: {
     name: "Alain",
     description:
@@ -11,7 +17,7 @@ const BARJOS_CONFIG = {
     name: "Alex",
     description:
       "Certainement le barjo le plus lourd, si tu as vu un mec vider une bouteille de Get dans la bouche d'un autre, c'est certainement lui!",
-    rarity: "uncommon",
+    rarity: "rare",
   },
   axelle: {
     name: "Axelle",
@@ -38,7 +44,7 @@ const BARJOS_CONFIG = {
   eva: {
     name: "Eva",
     description: "Notre barjo la plus peace. Attention: fume des clopes après quelques verres.",
-    rarity: "uncommon",
+    rarity: "rare",
   },
   fefe: {
     name: "Fefe",
@@ -50,7 +56,7 @@ const BARJOS_CONFIG = {
     name: "flo",
     description:
       "Le barjo le plus fou sans aucun doute, ses enfants l'ont bien calmés. Il a aussi des cuisses à la place des biceps.",
-    rarity: "uncommon",
+    rarity: "rare",
   },
   gael: {
     name: "Gael",
@@ -67,7 +73,7 @@ const BARJOS_CONFIG = {
   jeje: {
     name: "Jeje",
     description: "Toujours de bons conseils en matière de mécanique.",
-    rarity: "common",
+    rarity: "uncommon",
   },
   jerem: {
     name: "Jerem",
@@ -96,7 +102,7 @@ const BARJOS_CONFIG = {
     name: "Meras",
     description:
       "Ne le laissez jamais rentrer avant vous, il risque de vous laisser poiroter un moment...",
-    rarity: "uncommon",
+    rarity: "rare",
   },
   ophelie: {
     name: "Ophélie",
@@ -111,13 +117,13 @@ const BARJOS_CONFIG = {
   tarrius: {
     name: "Tarrius",
     description: "",
-    rarity: "uncommon",
+    rarity: "rare",
   },
   thomas: {
     name: "Thomas",
     description:
       "Il a pris pour habitude de poser sa pêche un peu partout, et non il n'est pas maraicher.",
-    rarity: "common",
+    rarity: "uncommon",
   },
 };
 
