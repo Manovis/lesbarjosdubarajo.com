@@ -109,6 +109,11 @@ const BARJOS_CONFIG = {
     description: "Les gens à l'ouest disent d'elle qu'elle est à l'ouest.",
     rarity: "common",
   },
+  pierre: {
+    name: "Pierre",
+    description: ".",
+    rarity: "rare",
+  },
   sandra: {
     name: "Sandra",
     description: "Pas vue sur Sète depuis des années, n'est-ce pas si mal?",
@@ -140,3 +145,4 @@ function getBarjoPhotoUrl(barjoId) {
   }
   return `images/${barjoId}.jpg`; // Fallback par défaut
 }
+
