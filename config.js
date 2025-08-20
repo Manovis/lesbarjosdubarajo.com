@@ -53,7 +53,7 @@ const BARJOS_CONFIG = {
     rarity: "legendary",
   },
   florian: {
-    name: "flo",
+    name: "Flo",
     description:
       "Le barjo le plus fou sans aucun doute, ses enfants l'ont bien calmés. Il a aussi des cuisses à la place des biceps.",
     rarity: "rare",
@@ -111,7 +111,7 @@ const BARJOS_CONFIG = {
   },
   pierre: {
     name: "Pierre",
-    description: ".",
+    description: "Barjo de type diabetique, s'il s'évanouit composez le 0000. Si vous l'embêtez Cecilia viendra vous plaquer.",
     rarity: "rare",
   },
   sandra: {
@@ -121,7 +121,7 @@ const BARJOS_CONFIG = {
   },
   tarrius: {
     name: "Tarrius",
-    description: "",
+    description: "La lapine qui pine.",
     rarity: "rare",
   },
   thomas: {
