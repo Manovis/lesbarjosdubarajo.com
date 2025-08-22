@@ -222,7 +222,7 @@ function showView(view) {
 // ===============================
 // Popup
 let currentPage = 1;
-const totalPages = 4;
+const totalPages = 2;
 
 // Affichage pop-up
 const showPopup = (popupname) => {
