@@ -32,9 +32,6 @@
       <button class="nav-btn" onclick="showView('collection')">
         COLLECTION
       </button>
-      <button class="nav-btn" onclick="showView('rewards')">
-        RECOMPENSES
-      </button>
     </div>
 
     <div id="success-message" class="success-message hidden">
@@ -171,7 +168,7 @@
             <h3>🖐 Bienvenue, Chasseur de Barjos !</h3>
             <p>Préparez-vous pour une aventure unique pendant ce week-end de Saint-Louis! Votre mission,
               est de collectionner tous les Barjos !</p>
-            <p>Voici comment participer et gagner des récompenses incroyables </p>
+            <p>Voici comment participer !</p>
             <p>🍹🍺</p>
           </div>
 
@@ -180,22 +177,7 @@
             <h2>Instructions du Barjodex</h2>
             <h3>🎮 Comment Jouer ?</h3>
             <p class="align-left"><strong>1.</strong> 📱 Quand tu croises un Barjo, sort ton téléphone et scanne son QR Code pour l'ajouter à ta collection.</p>
-            <p class="align-left"><strong>2.</strong> 🔄Vérifie ta progression dans l'onglet 'Récompenses".</p>
-            <p class="align-left"><strong>3.</strong> 🎁 A chaque badge débloqué, va vite chercher un Barjo pour récupérer ta récompense!</p>
-            <em>🕵️ Certains Barjos sont plus rares et leurs QR codes sont cachés!</em>
-          </div>
-
-          <!-- Page 3: Récompenses -->
-          <div class="page" data-page="3">
-            <h2>Instructions du Barjodex</h2>
-            <h3>🎁 Récompenses</h3>
-            <ul class="reward-list">
-              <li>🥉 <strong>7 Barjos communs :</strong> Badge Bronze et à définir</li>
-              <li>🥈 <strong>4 Barjos peu communs :</strong> Badge Argent + à définir</li>
-              <li>🥇 <strong>2 Barjos rares :</strong> Badge Or + à définir</li>
-              <li>👑 <strong>1 Barjo légendaire :</strong> Récompense légendaire !</li>
-            </ul>
-            <p><strong>Bonne chasse aux Barjos ! 🎉</strong></p>
+            <p class="align-left"><strong>2.</strong> 🔄Vérifie ta progression dans l'onglet 'Collection".</p>
           </div>
         </div>
 
@@ -207,7 +189,7 @@
           <div class="page-indicator">
             <div class="dot active" onclick="goToPage(1)"></div>
             <div class="dot" onclick="goToPage(2)"></div>
-            <div class="dot" onclick="goToPage(3)"></div>
+
           </div>
 
           <button class="nav-button" id="nextBtn" onclick="changePage(1)">
