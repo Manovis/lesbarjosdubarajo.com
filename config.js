@@ -77,7 +77,7 @@ const BARJOS_CONFIG = {
   },
   jerem: {
     name: "Jerem",
-    description: "Juste un BG.",
+    description: "Juste un BG (et le créateur du site, ça donne des privilèges...).",
     rarity: "common",
   },
   jr: {
@@ -145,4 +145,5 @@ function getBarjoPhotoUrl(barjoId) {
   }
   return `images/${barjoId}.jpg`; // Fallback par défaut
 }
+
 
